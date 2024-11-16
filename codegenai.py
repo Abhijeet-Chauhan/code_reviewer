@@ -7,7 +7,7 @@ llm = genai.GenerativeModel("models/gemini-1.5-flash")  # Change the model as ne
 chatbot = llm.start_chat(history=[])
 
 # Streamlit interface setup
-st.title("GenAI App - AI Code Reviewer")
+st.title("CodeFixer - AI Code Reviewer")
 st.markdown("Submit your Python code below, and I will review it for potential bugs and provide fixes.")
 
 # User input for Python code
@@ -27,14 +27,15 @@ def review_code(code):
 # Initialize reviewed_code as None
 reviewed_code = None
 
-# Check if user has entered code and review it
-if code_input:
-    st.subheader("AI Code Review:")
-    # Review the code and display the result
-    reviewed_code = review_code(code_input)
-    st.write(reviewed_code)
-else:
-    st.warning("Please paste some Python code above to get a review.")
+# Add a Submit button for code review
+if st.button("Submit Code for Review"):
+    if code_input:
+        st.subheader("AI Code Review:")
+        # Review the code and display the result
+        reviewed_code = review_code(code_input)
+        st.write(reviewed_code)
+    else:
+        st.warning("Please paste some Python code above to get a review.")
 
 # Optional: Allow users to download the reviewed code, only if reviewed_code is available
 if reviewed_code:
